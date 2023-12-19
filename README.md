@@ -17,9 +17,31 @@ Ce rootkit est destiné à être utilisé uniquement dans un environnement de re
 Expliquez ici les étapes pour installer et configurer le rootkit `GR9` sur un système.
 
 ## Usage
-Fournissez des détails sur la manière d'utiliser chaque fonctionnalité du rootkit.
+
+### Identifiants de Connexion
+- **Compte Utilisateur :**  
+  Nom d'utilisateur : `user`  
+  Mot de passe : `user`
+
+- **Compte Administrateur :**  
+  Nom d'utilisateur : `root`  
+  Mot de passe : `root`
+
+### Utilisation du Module
+
+#### Insertion du Module
+Pour insérer le module `vuln.ko` dans le système, utilisez la commande suivante :  
+```bash
+insmod /vuln.ko
+```
+#### Exécution du Script Compagnon :
+Pour interagir avec le module via le script compagnon, exécutez : 
+```bash
+sh /script_compagnon.sh
+```
+Suivez les instructions à l'écran pour utiliser les différentes fonctionnalités fournies par le script.
 
 ## Licence
-Spécifiez la licence sous laquelle le rootkit `GR9` est distribué.
+
 
 ## Contact
