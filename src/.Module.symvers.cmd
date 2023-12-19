@@ -1,0 +1,1 @@
+cmd_/home/zabi/Desktop/rootkit/rootkit/src/Module.symvers := sed 's/\.ko$$/\.o/' /home/zabi/Desktop/rootkit/rootkit/src/modules.order | scripts/mod/modpost    -o /home/zabi/Desktop/rootkit/rootkit/src/Module.symvers -e -i Module.symvers   -T -
