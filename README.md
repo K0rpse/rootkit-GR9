@@ -4,8 +4,8 @@
 Le rootkit `GR9` est un module de noyau Linux (LKM) conçu pour démontrer les techniques avancées d'interception et de manipulation des fonctionnalités du noyau Linux. Il est développé à des fins éducatives et de recherche en sécurité informatique.
 
 ## Fonctionnalités
-- **Élévation de Privilèges :** Accès aux privilèges root via interception de signaux spécifiques.
-- **Dissimulation :** Capable de masquer sa présence ainsi que celle de processus spécifiques.
+- **Élévation de Privilèges :** obtenir des privilèges root en interceptant le signal envoyé par `kill -26 2600` .
+- **Dissimulation :** Capable de masquer la présence d'un processus spécifique.
 - **Manipulation des Appels Système :** Intercepte et modifie les appels système clés pour influencer le comportement du système.
 - **Reverse Shell :** Permet un accès à distance pour un contrôle et une surveillance accrus.
 - **Persistance :** Assure la continuité du rootkit à travers les redémarrages du système.
