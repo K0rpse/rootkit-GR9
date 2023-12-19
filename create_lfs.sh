@@ -86,6 +86,7 @@ echo "$config_grub" > /tmp/my-rootfs/boot/grub/grub.cfg
 grub-install --directory=/usr/lib/grub/i386-pc --boot-directory=/tmp/my-rootfs/boot /dev/loop0
 
 cp $ROOTKIT_DIR/vuln.ko $TMP_DIR
+cp GR9_launcher.sh $TMP_DIR
 umount $TMP_DIR
 
 rm -rf $TMP_DIR

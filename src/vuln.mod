@@ -1,2 +1,2 @@
-/home/zabi/Desktop/rootkit/rootkit/src/vuln.o
+/home/zabi/Desktop/rootkit/rootkit-GR9/src/vuln.o
 
