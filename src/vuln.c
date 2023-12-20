@@ -71,11 +71,7 @@ __pid* getNew__pid(int value)
     new__pid->next = NULL;
     return new__pid;
 }
-/**
- * Ajoute un pointeur __pid à la liste chaînée.
- * @param head Pointeur vers la tête de la liste chaînée.
- * @param value Valeur à ajouter à la liste.
- */
+
 void add__pid(__pid** head, int value)
 {
     __pid* new__pid = getNew__pid(value);
@@ -87,12 +83,7 @@ void add__pid(__pid** head, int value)
     *head = new__pid;
 }
 
-/**
- * Supprime un pointeur __pid de la liste chaînée.
- * @param head Pointeur vers la tête de la liste chaînée.
- * @param value Valeur à supprimer de la liste.
- * @return Vrai si la valeur a été supprimée, sinon faux.
- */
+
 bool remove__pid(__pid** head, int value)
 {
     __pid *temp = *head, *prev = NULL;
@@ -115,19 +106,6 @@ bool remove__pid(__pid** head, int value)
     // Unlink the __pid from linked list
     prev->next = temp->next;
     return true;
-}
-
-/**
- * Affiche les valeurs contenues dans la liste chaînée de pointeurs __pid.
- * @param __pid Pointeur vers le début de la liste chaînée.
- */
-void printList(__pid* __pid)
-{
-    while (__pid != NULL) {
-        printk(KERN_INFO" %d ", __pid->data);
-        __pid = __pid->next;
-    }
-    printk(KERN_INFO "\n");
 }
 
 /**
